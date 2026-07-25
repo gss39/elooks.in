@@ -10,10 +10,10 @@ import random
 
 
 # Essential: Set a browser-like User-Agent to avoid a 503 error
-# headers = {
-#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-#     'Accept-Language': 'en-US, en;q=0.5'
-# }
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+    'Accept-Language': 'en-US, en;q=0.5'
+}
 
 
 def specific_string(length):
