@@ -10,10 +10,10 @@ import random
 
 
 # Essential: Set a browser-like User-Agent to avoid a 503 error
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-    'Accept-Language': 'en-US, en;q=0.5'
-}
+# headers = {
+#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+#     'Accept-Language': 'en-US, en;q=0.5'
+# }
 
 
 def specific_string(length):
@@ -140,13 +140,18 @@ def scrape_amazon_data(url):
         try:      
             Derc = soup.find("ul", attrs={"class": 'a-unordered-list a-vertical a-spacing-mini'}).text.strip().replace('₹', '').replace('M.R.P.:', '').replace('.00', '')
         except:
-            Derc = "NILL"    
+            Derc = "NILL"   
+        try:      
+            p_img = soup.find("img", attrs={"class": 'a-dynamic-image a-stretch-vertical media-block-image-tag'})
+            p_img_src = p_img['src']
+        except:
+            p_img_src = "NILL"     
 
-        all_data_list = [title, Rating, Reviews, Discount, Price, Mrp, Derc]
+        all_data_list = [title, Rating, Reviews, Discount, Price, Mrp, Derc, p_img_src]
         data_list.append(all_data_list)
         # print(Mrp)
         # print(all_data_list)
-        print(f"Title: {title}, Rating: {Rating}, Reviews: {Reviews}, Discount: {Discount}, Price: {Price}, Mrp: {Mrp}")
+        print(f"p_img_src: {p_img_src}")
     return data_list
 
 def scrape_amazon_data_send():
@@ -156,9 +161,10 @@ def scrape_amazon_data_send():
     data = scrape_amazon_data(url)
     list1 = [i[0], i[1]] + data[0]
     total_data_list.append(list1)
- return total_data_list
+    # print(total_data_list)
+#  return total_data_list
 
-# scrape_amazon_data_send()
+scrape_amazon_data_send()
 
 
 

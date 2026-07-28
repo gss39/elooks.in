@@ -28,7 +28,7 @@ body {
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
   <div class="offcanvas-header">
     <a href="index.php" class="header-logo">
-          <img src="../assets/images/logo/logo5.png" style = "align-items-start"   alt="Anon's logo" width="175" height="47">
+          <img src="../assets/images/logo/logo8.png" style = "align-items-start"   alt="Anon's logo" width="175" height="47">
         </a>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
@@ -48,7 +48,7 @@ body {
       <a href="search_results.php?search=WallDécor&search_data=null"><li class="list-group-item d-flex list-group-item-action">Wall Décor & Hanging</li></a>
       
       <li  class="list-group-item fw-bold list-group  d-flex" >Smart Gadgets</li>
-      <a href="search_results.php?search=Kitchens&search_data=null"><li class="list-group-item d-flex list-group-item-action">Kitchen</li></a>
+      <a href="search_results.php?search=Kitchen&search_data=null"><li class="list-group-item d-flex list-group-item-action">Kitchen</li></a>
       <a href="search_results.php?search=Home&search_data=null"><li class="list-group-item d-flex list-group-item-action">Home</li></a>
       <a href="search_results.php?search=Garden&search_data=null"><li class="list-group-item d-flex list-group-item-action">Garden</li></a>
       <a href="search_results.php?search=SmartGadgets&search_data=null"><li class="list-group-item d-flex list-group-item-action">Smart</li></a>

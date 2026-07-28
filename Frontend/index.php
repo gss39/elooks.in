@@ -85,7 +85,7 @@ if ($conn->connect_error) {
       <div class="container">
 
         <a href="index.php" class="header-logo">
-          <img src="../assets/images/logo/logo8.png" alt="Anon's logo" width="155" height="45">
+          <img src="../assets/images/logo/logo8.png" alt="Anon's logo" width="160" height="45">
         </a>
 
 <!-- //////////////////////////////////////////////////////////////////// -->
