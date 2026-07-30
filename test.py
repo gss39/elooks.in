@@ -39,8 +39,8 @@ headers = {
     'Referer': "https://www.amazon.in/",
 }
 
-def scrape_amazon_data():
-    url = "https://www.amazon.in/LOMESH-Interlocking-Carpet-Climbing-Bedroom/dp/B0FJ2JGYF4"
+def scrape_amazon_data(x):
+    url = f'https://www.amazon.in/s?k=shirts&page={x}'
     gateway = ApiGateway(url,access_key_id=key_id,access_key_secret=secret_key)
     gateway.start()
     
@@ -48,13 +48,21 @@ def scrape_amazon_data():
     session.mount(url, gateway)
     webpage = session.get(url, headers=headers,cookies=cookies,params={"theme": "light"})
     soup = BeautifulSoup(webpage.text, 'html.parser')
+    all_data = []
     if webpage.status_code == 200:
         print("Success")
-        Derc = soup.find("ul", attrs={"class": 'a-unordered-list a-nostyle a-button-list a-declarative a-button-toggle-group a-vertical a-spacing-top-micro gridAltImageViewLayoutIn1x7'})
-        # Derc_src = Derc['src'] if Derc else None
-        print(Derc)
-    else:
-        print(f"Failed to retrieve page. Status Code: {webpage.status_code}")    
-   
+       
+        for data in soup.find_all("div", attrs={"class": 's-product-image-container aok-relative s-text-center s-image-overlay-grey puis-image-overlay-grey s-padding-left-small s-padding-right-small puis-spacing-small s-height-equalized puis puis-v1z7l97026vk2122n5xv1arv4h0'}):
+            a =  data.find("a")
+            img =  data.find("img")
+            link = a.get('href') if a else None
+            img_src = img['src'] if img else None
+            mydata = [img_src,link]
+            all_data.append(mydata)
+        else:
+            print(f"Failed to retrieve page. Status Code: {webpage.status_code}")  
 
-scrape_amazon_data()
+    print(f"Scraped {len(all_data)} items from page {x}.")
+    return all_data      
+
+print(scrape_amazon_data(2))
