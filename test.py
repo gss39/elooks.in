@@ -53,14 +53,40 @@ def scrape_amazon_data(x):
         print("Success")
        
         for data in soup.find_all("div", attrs={"class": 's-product-image-container aok-relative s-text-center s-image-overlay-grey puis-image-overlay-grey s-padding-left-small s-padding-right-small puis-spacing-small s-height-equalized puis puis-v1z7l97026vk2122n5xv1arv4h0'}):
-            a =  data.find("a")
+            link =  data.find("a")
+            p_link = link.get('href') if link else None
+
             img =  data.find("img")
-            link = a.get('href') if a else None
             img_src = img['src'] if img else None
-            mydata = [img_src,link]
-            all_data.append(mydata)
-        else:
-            print(f"Failed to retrieve page. Status Code: {webpage.status_code}")  
+        
+        for data in soup.find_all("div", attrs={"class": 'a-section a-spacing-small puis-padding-left-micro puis-padding-right-micro'}):
+            brand =  data.find("span", attrs={"class": 'a-size-base-plus a-color-base'})
+            brand_name = brand.text.strip() if brand else None
+
+            title =  data.find("h2", attrs={"class": 'a-size-base-plus a-spacing-none a-color-base a-text-normal'})
+            title_name = title.text.strip() if title else None
+
+            rating =  data.find("span", attrs={"class": 'a-size-small a-color-base'})
+            rating_value = rating.text.strip() if rating else None
+
+            reviews =  data.find("span", attrs={"class": 'a-size-mini puis-normal-weight-text s-underline-text'})
+            review_count = reviews.text.strip() if reviews else None
+
+            price =  data.find("span", attrs={"class": 'a-price-whole'})
+            price_value = price.text.strip() if price else None
+
+            mrp =  data.find("span", attrs={"class": 'a-price a-text-price'})
+            mrp_value = mrp.find("span", attrs={"class": 'a-offscreen'})
+            my_mrp = mrp_value.text.strip() if mrp_value else None
+
+            discount =  data.find_all("div", attrs={"class": 'a-row'})
+            discount_value = discount.find("span")
+            my_discount = discount
+
+            all_data.append({"link": p_link, "img_src": img_src, "brand_name": brand_name, "title_name": title_name, "rating_value": rating_value, "review_count": review_count, "price_value":  price_value, "my_mrp":  my_mrp, "my_discount": my_discount  })
+            
+        
+
 
     print(f"Scraped {len(all_data)} items from page {x}.")
     return all_data      
