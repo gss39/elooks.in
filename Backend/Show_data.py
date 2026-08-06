@@ -27,10 +27,11 @@ import pandas as pd
 
 def return_amazon_code():
     amazon_code = []
-    df = pd.read_excel('./Backend/amazon_gadgts.xlsx',skiprows=2,header=None)  
+    df = pd.read_excel('output.xlsx',skiprows=1,header=None)  
     # Convert the column data into a clean Python list
 
  
     for index, row in df.iterrows():
         amazon_code.append(row.tolist())
+    print(amazon_code)    
     return amazon_code

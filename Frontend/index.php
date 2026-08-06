@@ -1399,15 +1399,15 @@ if ($conn->connect_error) {
                       ?> 
                       <div class="showcase">
 
-                  <a href="Product_page.php?Pid=<?php echo $row["product_code"]?>" class="showcase-img-box">
-                    <img src="../assets/images/Product_images/<?php echo $row["video_code"]?>.jpg" alt="baby fabric shoes" width="75" height="100"
+                  <a href="" class="showcase-img-box">
+                    <img src="<?php echo $row["Product_image"]?>" alt="baby fabric shoes" width="75" height="100"
                       class="showcase-img">
                   </a>
 
                   <div class="showcase-content">
 
                     <a href="#">
-                      <h4 class="showcase-title"><?php echo $row["Title"]?></h4>
+                      <h4 class="showcase-title"><?php echo $row["Title_Name"]?></h4>
                     </a>
 
                     <div class="showcase-rating">
@@ -1419,8 +1419,8 @@ if ($conn->connect_error) {
                     </div>
 
                     <div class="price-box">
-                      <del>&#8377<?php echo $row["Mrp"]?></del>
-                      <p class="price" style= "margin-bottom: 0rem;">&#8377 <?php echo $row["Price"] ?></p>
+                      <del>&#8377<?php echo $row["Mrp_Value"]?></del>
+                      <p class="price" style= "margin-bottom: 0rem;">&#8377 <?php echo $row["Price_Value"] ?></p>
                     </div>
 
                   </div>
@@ -2293,8 +2293,8 @@ if ($conn->connect_error) {
                 <div class="showcase-banner">
 
 
-                  <a href="Product_page.php?Pid=<?php echo $row["product_code"]?>"><img src="../assets/images/Product_images/<?php echo $row["video_code"]?>.jpg" alt="Mens Winter Leathers Jackets" width="300" class="product-img default"></a>
-                  <a href="Product_page.php?Pid=<?php echo $row["product_code"]?>"><img src="../assets/images/Product_images/<?php echo $row["video_code"]?>.jpg" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover"></a>
+                  <img src="<?php echo $row["Product_image"]?>" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                  <img src="<?php echo $row["Product_image"]?>" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
 
                   <p class="showcase-badge"><?php echo $row["Discount"]?></p>
 

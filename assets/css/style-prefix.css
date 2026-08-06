@@ -1536,7 +1536,7 @@ font-size: clamp(.5rem, 4vw + 1rem, 1rem);
 }
 
 .product-grid .showcase {
-  border: 1px solid var(--cultured);
+  border: 1px solid #a5a5a5;
   -webkit-border-radius: var(--border-radius-md);
           border-radius: var(--border-radius-md);
   overflow: hidden;
@@ -2260,9 +2260,9 @@ footer {
   .product-grid {
     -ms-grid-columns: 1fr 30px 1fr;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    gap: 5px;
-  columns: 4; /* Defines the number of columns */
+    gap: 10px;
+    gap: 10px;
+  columns: 5; /* Defines the number of columns */
   }
 
   /* .product-featured .add-cart-btn {

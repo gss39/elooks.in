@@ -4,6 +4,7 @@ import re
 import pandas as pd
 from requests_ip_rotator import ApiGateway, EXTRA_REGIONS, ALL_REGIONS
 import random
+import test2
 
 key_id = 'AKIARSU7K3JQWVPOZV72'
 secret_key = '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'
@@ -40,7 +41,7 @@ headers = {
 }
 
 def scrape_amazon_data(x):
-    url = f'https://www.amazon.in/s?k=shirts&page={x}'
+    url = f'https://www.amazon.in/s?k=check+shirts+for+men&page={x}'
     gateway = ApiGateway(url,access_key_id=key_id,access_key_secret=secret_key)
     gateway.start()
     
@@ -48,47 +49,101 @@ def scrape_amazon_data(x):
     session.mount(url, gateway)
     webpage = session.get(url, headers=headers,cookies=cookies,params={"theme": "light"})
     soup = BeautifulSoup(webpage.text, 'html.parser')
+
     all_data = []
     if webpage.status_code == 200:
-        print("Success")
-       
-        for data in soup.find_all("div", attrs={"class": 's-product-image-container aok-relative s-text-center s-image-overlay-grey puis-image-overlay-grey s-padding-left-small s-padding-right-small puis-spacing-small s-height-equalized puis puis-v1z7l97026vk2122n5xv1arv4h0'}):
-            link =  data.find("a")
-            p_link = link.get('href') if link else None
+     print("Success")
+    for data in soup.find_all("div", attrs={"class": 'a-section a-spacing-base desktop-grid-content-view'}):
+        try:
+          link =  data.find("a")
+          p_link = link.get('href')
+        except:
+          p_link = "not available"
 
-            img =  data.find("img")
-            img_src = img['src'] if img else None
-        
-        for data in soup.find_all("div", attrs={"class": 'a-section a-spacing-small puis-padding-left-micro puis-padding-right-micro'}):
-            brand =  data.find("span", attrs={"class": 'a-size-base-plus a-color-base'})
-            brand_name = brand.text.strip() if brand else None
+        try:
+          img =  data.find("img")
+          img_src = img['src']
+        except:
+          img_src = "not available"
 
-            title =  data.find("h2", attrs={"class": 'a-size-base-plus a-spacing-none a-color-base a-text-normal'})
-            title_name = title.text.strip() if title else None
+        try:
+         brand =  data.find("span", attrs={"class": 'a-size-base-plus a-color-base'})
+         brand_name = brand.text.strip()
+        except:
+         brand_name = "not available"
 
-            rating =  data.find("span", attrs={"class": 'a-size-small a-color-base'})
-            rating_value = rating.text.strip() if rating else None
+        try:  
+         title =  data.find("h2", attrs={"class": 'a-size-base-plus a-spacing-none a-color-base a-text-normal'})
+         title_name = title.text.strip()
+        except:
+         title_name = "not available"
 
-            reviews =  data.find("span", attrs={"class": 'a-size-mini puis-normal-weight-text s-underline-text'})
-            review_count = reviews.text.strip() if reviews else None
+        try:
+         rating =  data.find("span", attrs={"class": 'a-size-small a-color-base'})
+         rating_value = rating.text.strip()
+        except:
+         rating_value = "not available"
 
-            price =  data.find("span", attrs={"class": 'a-price-whole'})
-            price_value = price.text.strip() if price else None
+        try:
+         reviews =  data.find("span", attrs={"class": 'a-size-mini puis-normal-weight-text s-underline-text'})
+         review_counts = reviews.text.strip()
+         review_count = review_counts.replace("(", "").replace(")", "")
 
-            mrp =  data.find("span", attrs={"class": 'a-price a-text-price'})
-            mrp_value = mrp.find("span", attrs={"class": 'a-offscreen'})
-            my_mrp = mrp_value.text.strip() if mrp_value else None
+        except:
+         review_count = "not available"
 
-            discount =  data.find_all("div", attrs={"class": 'a-row'})
-            discount_value = discount.find("span")
-            my_discount = discount
+        try:
+         price =  data.find("span", attrs={"class": 'a-price-whole'})
+         price_value = price.text.strip() 
+         rupee_symbol = "₹"
+         price_value = f"{rupee_symbol}{price_value}"
 
-            all_data.append({"link": p_link, "img_src": img_src, "brand_name": brand_name, "title_name": title_name, "rating_value": rating_value, "review_count": review_count, "price_value":  price_value, "my_mrp":  my_mrp, "my_discount": my_discount  })
-            
-        
+        except:
+         price_value = "not available"
+
+        try:
+         mrp =  data.find("span", attrs={"class": 'a-price a-text-price'})
+         mrp_value = mrp.find("span", attrs={"class": 'a-offscreen'})
+         my_mrp = mrp_value.text.strip()
+        except:
+         my_mrp = "not available"
+
+        try:
+         img_ids = test2.scrape_amazon_product_data("https://www.amazon.in" + p_link)
+        except:
+         img_ids = "not available"
 
 
-    print(f"Scraped {len(all_data)} items from page {x}.")
+        try:
+          discount =  data.find("div", attrs={"class": 'a-row a-size-base a-color-base'})
+          my_discount = discount.find("div", attrs={"class": 'a-row'})
+          all_span = []
+          for span in my_discount:
+            my_span = span.text.strip()
+            all_span.append(my_span)
+            discount_off =  all_span[-1]   
+            if "off" in discount_off:
+                discounts_off =  discount_off
+                discount_off = discounts_off.replace("(", "").replace(")", "")
+            else:
+                discount_off = "0% off"
+        except:
+            discount_off = "not available"
+
+                
+        all_data.append({"brand_name": brand_name,  "rating_value": rating_value, "review_count": review_count, "price_value":  price_value, "my_mrp":  my_mrp,"discount_off":  discount_off, "title_name": title_name, "p_link": p_link, "img_src": img_src, "img_ids": img_ids})
+        print(f"Scraped {len(all_data)} items from page {x}.")
     return all_data      
 
-print(scrape_amazon_data(2))
+data =[]
+for i in range(1,2):
+ mydata = scrape_amazon_data(i)
+ data.extend(mydata)
+
+df = pd.DataFrame(data, columns=[ "brand_name", "rating_value", "review_count", "price_value", "my_mrp", "discount_off","title_name" ,"p_link", "img_src", "img_ids"])  
+df.to_excel("output.xlsx",  index=False)
+  
+
+
+
+
