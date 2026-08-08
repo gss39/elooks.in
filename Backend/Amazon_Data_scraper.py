@@ -151,7 +151,7 @@ def scrape_amazon_data(url):
         data_list.append(all_data_list)
         # print(Mrp)
         # print(all_data_list)
-        print(f"p_img_src: {p_img_src}")
+       
     return data_list
 
 def scrape_amazon_data_send():

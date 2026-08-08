@@ -22,7 +22,6 @@ Scrape_data = Show_data.return_amazon_code()
 # print(Scrape_data[0][0])
 for i in Scrape_data:
     values = (i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8]) # Adjust column names as needed
-    print(values)
     cursor.execute(sql_query, values)
     
 conn.commit() 

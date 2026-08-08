@@ -30,7 +30,6 @@ def trace_id(length):
     sample_string = 'pq0rstu1vw2xya3ksdj4hkasdl5kjql6uwo7el8kansl9dknc'
     # define the condition for random string
     result = ''.join((random.choice(sample_string)) for x in range(length))
-    
     return result
 
 headers = {
@@ -39,8 +38,8 @@ headers = {
     'Referer': "https://www.amazon.in/",
 }
 
-def scrape_amazon_product_data(url):
-
+def scrape_amazon_product_data():
+    url = "https://www.amazon.in/Majestic-Man-Stylish-Cotton-Checked/dp/B0FJXHBS9X"
     gateway = ApiGateway(url,access_key_id=key_id,access_key_secret=secret_key)
     gateway.start()
     
@@ -59,10 +58,10 @@ def scrape_amazon_product_data(url):
         content_id = li.get('data-csa-c-content-id')
         id_list.append(content_id)
         id_result_comma = ", ".join(id_list)
-     print(id_result_comma) 
-     return id_result_comma
+        print(id_result_comma) 
+    #  return id_result_comma
      
-#scrape_amazon_product_data()
+scrape_amazon_product_data()
 
 
 

@@ -1395,12 +1395,18 @@ if ($conn->connect_error) {
                   if (mysqli_num_rows($result) > 0) {
                     // Output data of each row
                     while($row = mysqli_fetch_assoc($result)) {
+
+                    $my_img = $row["Product_image"];
+                      $str_to_list = explode(',', $my_img);
+
+                      $list = array_filter(explode(',', $my_img), 'trim');
+                      $list = array_values($list); // Reset keys if needed
                       
                       ?> 
                       <div class="showcase">
 
                   <a href="" class="showcase-img-box">
-                    <img src="<?php echo $row["Product_image"]?>" alt="baby fabric shoes" width="75" height="100"
+                    <img src="https://m.media-amazon.com/images/I/<?=trim($list[1])?>._SY741_.jpg" alt="baby fabric shoes" width="75" height="100"
                       class="showcase-img">
                   </a>
 
@@ -1419,8 +1425,8 @@ if ($conn->connect_error) {
                     </div>
 
                     <div class="price-box">
-                      <del>&#8377<?php echo $row["Mrp_Value"]?></del>
-                      <p class="price" style= "margin-bottom: 0rem;">&#8377 <?php echo $row["Price_Value"] ?></p>
+                      <del><?php echo $row["Mrp_Value"]?></del>
+                      <p class="price" style= "margin-bottom: 0rem;"><?php echo $row["Price_Value"] ?></p>
                     </div>
 
                   </div>
@@ -2285,16 +2291,21 @@ if ($conn->connect_error) {
                   if (mysqli_num_rows($result) > 0) {
                     // Output data of each row
                     while($row = mysqli_fetch_assoc($result)) {
+                      $my_img = $row["Product_image"];
+                      $str_to_list = explode(',', $my_img);
+
+                      $list = array_filter(explode(',', $my_img), 'trim');
+                      $list = array_values($list); // Reset keys if needed
                       
+                 
                       ?> 
 
               <div class="showcase">
 
                 <div class="showcase-banner">
 
-
-                  <img src="<?php echo $row["Product_image"]?>" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                  <img src="<?php echo $row["Product_image"]?>" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+                  <img src="https://m.media-amazon.com/images/I/<?=trim($list[1])?>._SY741_.jpg" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                  <img src="https://m.media-amazon.com/images/I/<?=trim($list[0])?>._SY741_.jpg" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
 
                   <p class="showcase-badge"><?php echo $row["Discount"]?></p>
 

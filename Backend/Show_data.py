@@ -33,5 +33,5 @@ def return_amazon_code():
  
     for index, row in df.iterrows():
         amazon_code.append(row.tolist())
-    print(amazon_code)    
+      
     return amazon_code

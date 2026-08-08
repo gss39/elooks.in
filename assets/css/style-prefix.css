@@ -2262,7 +2262,7 @@ footer {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     gap: 10px;
-  columns: 5; /* Defines the number of columns */
+  columns: 4; /* Defines the number of columns */
   }
 
   /* .product-featured .add-cart-btn {

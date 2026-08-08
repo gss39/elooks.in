@@ -53,7 +53,7 @@ def scrape_amazon_data(x):
     all_data = []
     if webpage.status_code == 200:
      print("Success")
-    for data in soup.find_all("div", attrs={"class": 'a-section a-spacing-base desktop-grid-content-view'}):
+     for data in soup.find_all("div", attrs={"class": 'a-section a-spacing-base desktop-grid-content-view'}):
         try:
           link =  data.find("a")
           p_link = link.get('href')
@@ -133,6 +133,7 @@ def scrape_amazon_data(x):
                 
         all_data.append({"brand_name": brand_name,  "rating_value": rating_value, "review_count": review_count, "price_value":  price_value, "my_mrp":  my_mrp,"discount_off":  discount_off, "title_name": title_name, "p_link": p_link, "img_src": img_src, "img_ids": img_ids})
         print(f"Scraped {len(all_data)} items from page {x}.")
+        print(all_data)
     return all_data      
 
 data =[]
